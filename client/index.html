@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Vue Intro</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/vue"></script>
+  </head>
+  <body>
+
+    <div id="app">
+
+      <h1>Vue.js Intro</h1>
+
+      <hr>
+
+      <!-- ****** BASICS ******* -->
+      <h2>Basics</h2>
+
+      <p>
+        <strong>For <span class="highlight">string interpolation</span> (dynamically outputting a JavaScript string into HTML) in Vue you use curly braces {{ }} but this only works for outputing text.</strong>
+      </p>
+      <p>
+        <strong>If you change a data property in a method, all instances of that property will be changed. If you want to dynamically output a data property AND DO NOT want it to be changed once rendered, (like a const in es6) we can use another directive - <span class="highlight">v-once</span> - for that.</strong>
+      </p>
+      <p v-once>Output from data property - <span class="output">{{ title }}</span></p>
+      <p>Output from method return - <span class="output">{{ sayHello() }}</span></p>
+      <p>Output from data property within a method return - <span class="output">{{ outputTitle() }}</span></p>
+
+      <hr>
+
+      <p>
+        <strong>By default, Vue escapes HTML - meaning it does not render HTML elements when you try to dynamically add a full HTML element into the DOM from a JavaScript string.</strong>
+      </p>
+      <p>{{ linkElement }}</p>
+      <p>
+        <strong>But if we want to <span class="highlight">dynamically render HTML</span> code from our string in our data property, we can use another Vue directive called v-html. You pass the data property as the value and it will render the HTML inside the string into the DOM.</strong>
+      </p>
+      <p v-html="linkElement"></p>
+
+      <hr>
+
+      <p>
+        <strong>Instead of using data properties and methods in your HTML elements every time, you could also use <span class="highlight">JavaScript inside your HTML</span> code as long as it returns a single expression and does not include any conditional or advanced logic.</strong>
+      </p>
+      <button v-on:click="counter++">Click Me</button>
+      <p>{{ counter * 2 }}</p>
+      <p>{{ counter * 2 > 10 ? 'Greater than 10' : 'Smaller than 10'}}</p>
+
+      <!-- ****** DIRECTIVES / TWO-WAY BINDING ******* -->
+      <h2>Directives / Two Way Binding</h2>
+
+      <p>
+        <strong>To output a dynamic value for a HTML attribute (like change the href in a link tag) you must use <span class="highlight">directives</span>. The directive we use to dynamically inject the string link is v-bind. To pass an argument to a directive you use a colon : (v-bind:href="link"). Notice we do not use curly braces in the quotation marks of the directive, only the name of the data property.</strong>
+      </p>
+      <p>
+        <strong>A directive is a marker in the DOM that attaches a specific behaivor to that element.</strong>
+      </p>
+      <p>Link to Google - <a v-bind:href="link">Google</a></p>
+
+      <hr>
+
+      <p>
+        <strong>To <span class="highlight">listen to events</span> in Vue we can again use directives in our HTML. To listen for events we can use the - <span class="highlight">v-on</span> - directive followed by the event we are listening for separated by a colon <br> (v-on:click="methodName")</strong>
+      </p>
+      <button type="button" name="button" v-on:click="increaseCounter($event, 2)">Click Me</button>
+      <p>{{ counter }}</p>
+      <p>
+        <strong>When an event happens, there is a default event object passed as a parameter to the event method. So as you can see in the method, we can console.log() the event object to see the Mouse event object that gets passed every time the event is triggered.</strong>
+      </p>
+      <p>
+        <strong>When you want to both add your own parameters and have the event object also passed as a parameter, you can do this very simply by including the event (or e) parameter in your method along with your own custom parameters and when you actually invoke the function. You pass the <span class="highlight">$event</span> namespace as the parameter.</strong>
+      </p>
+
+      <hr>
+
+      <p>
+        <strong>Sometimes we will want to add a <span class="highlight">modifier</span> to an event. To do this we just add a . after the event and declare the modifier we want to use (v-on:mousemove<span class="highlight">.stop</span>). This tells Vue when we mouse over the element with this directive we want to STOP the propogation of the event.</strong>
+      </p>
+      <p style="background-color: red; color: white;" v-on:mousemove="updateCoordinates">Coordinates: {{ x }} / {{ y }} - <span v-on:mousemove.stop style="background-color: green; padding: 0 10px;">DEAD SPOT</span></p>
+
+      <hr>
+
+      <p>
+        <strong><span class="highlight">Two way binding</span> is both outputting data and listening for incoming events at the same time. Adding a <span class="highlight">v-model</span> directive can declare a 2 way binding.</strong>
+      </p>
+      <input type="text" v-model="name">
+      <p>{{ name }}</p>
+      <p>
+        <strong>So with the 2 way data binding the output data property will automatically be changed by the listening event placed on the element.</strong>
+      </p>
+
+      <hr>
+
+      <p>
+        <strong>We can replace directives v-on and v-bind with <span class="highlight">shorthands</span> to make for faster development. You can replace v-on with the @ symbol and v-bind with nothing just the :attribute.</strong>
+        <p>v-on:click ----> @click</p>
+        <p>v-bind:href ----> :href</p>
+      </p>
+
+      <!-- ****** Events / Computed Properties / Watch Functions ******* -->
+      <h2>Events / Computed Properties / Watch Functions</h2>
+
+      <p>
+        <strong>We can also listen to <span class="highlight">keyboard events</span>. We do this by adding the v-on:<span class="highlight">keyup</span> event. So every time the user presses a key and releases, an event will be fired.</strong>
+      </p>
+      <p>
+        <strong>We can also listen for when users type a specific key. To do this we just add a MODIFIER (using a . after the event like shown in previous example). So if we wanted to listen for when a user clicked the enter key we would do -- <span class="highlight">v-on:keyup.enter</span> -- this would trigger an event every time the user clicks the enter button. </strong>
+      </p>
+      <input type="text" v-on:keyup.enter="userSubmission">
+
+      <hr>
+
+      <p>
+        <strong>When you invoke a function inside the methods object inside your HTML, this method will rerender EVERY time one of your data properties is changed. This is unnecessary especially if you are not even manipulating one of the data properties.</strong>
+      </p>
+      <p>
+        <strong>You can tell this because every time we update our secondCounter property, the result() function is invoked even though the secondCounter property has nothing to do with the method meaning the code is running unnecessarily.</strong>
+      </p>
+      <p>
+        <strong>To prevent these methods from being rerendered every time a property is changed, we can instead use a <span class="highlight">computed</span> property. Computed properties are advanced properties that are configured through a function.</strong>
+      </p>
+      <p>
+        <strong>So now every time a property is changed, Vue looks inside the computed function to see if a specific property was changed, and if the specified property is changed only THEN the computed function is invoked. If the specific property does not show up in the computed function, the function will not rerender every time as the result() method does.</strong>
+      </p>
+      <button v-on:click="counter++">Increase</button>
+      <button v-on:click="counter--">Decrease</button>
+      <button v-on:click="secondCounter++">Increase Second Counter</button>
+      <p>Counter: {{ counter }}</p>
+      <p>Second Counter: {{ secondCounter }}</p>
+      <p>Result: {{ result() }} | {{ output }}</p>
+
+      <hr>
+
+      <p>
+        <strong>In addtion to computed, we can also use the <span class="highlight">watch</span> object in our Vue instance to watch for changes to a specified data property and invoke then invoke the method specified in the watch object.</strong>
+      </p>
+      <p>
+        <strong>So the computed functions will analyze the code and invoke the function only if a specific property within its function has been changed and with watch functions you get to invoke a function when a specific data property you specify is changed.</strong>
+      </p>
+      <p>
+        <strong>The instructor states it is best practice to use computed properties whenever you can simply because they are more optimized.</strong>
+      </p>
+
+      <!-- ******* CSS STYLING ******* -->
+      <h2>CSS Styling</h2>
+
+      <p>
+        <strong>To dynamically include/remove CSS classes to an element you can use the <span class="highlight">:class</span> directive followed by an object wrapped in parenthesis. The property name should be the class name you want to give the element and the value should be the boolean value of whether the class should be added to the element or not.</strong>
+      </p>
+      <div class="box" @click="attachRed = !attachRed" :class="{'red': attachRed}"></div>
+
+      <hr>
+
+      <p>
+        <strong>If we were wanting to <span class="highlight">manipulate multiple classes within an element</span>, the object in the HTML attribute might become complex so we can instead do this through a computed JavaScript object.</strong>
+      </p>
+      <p>
+        <strong>You can see in the computed function we can return an object that manipulates multiple css classes at once and changes the element accordingly. And now this makes it to where we can just use the computed property name as the :class directive value instead of a long ugly object in a string.</strong>
+      </p>
+      <div class="box" @click="attachRed = !attachRed" :class="divClasses"></div>
+
+      <hr>
+
+      <p>
+        <strong>You do not always have to include CSS classes just by conditionals, we can also <span class="highlight">include CSS classes just by name</span>. Instead of an object stating whether the the class should be appended or not, we can just simply add the name of the class we want appended and it will be added to the element.</strong>
+      </p>
+      <p>
+        <strong>You can see we can now type green, blue, or red (the class names we have specified in our CSS) to dynamically change the background color or the box.</strong>
+      </p>
+      <p>
+        <strong>In our :class directive we can use an array to structure our classes. So if our first array element is false(undefined), the second class will be appended like shown in the example.</strong>
+      </p>
+      <div class="box" :class="[boxColor, {red: attachRed}]"></div>
+      <br>
+      <input type="text" v-model="boxColor">
+
+      <hr>
+
+      <p>
+        <strong>You can also dynamically change the style attribute of an element by using the <span class="highlight">(v-bind):stlye</span> directive.</strong>
+      </p>
+      <p>
+        <strong>You set your style the same way you set classes, by including the styles inside of a JS object within (single) quotes -- :style="{ backgroundColor: color }" -- </strong>
+      </p>
+      <p>
+        <strong>You can also use the array syntax also like the class styling. If our first array element is falsy(undefined), the second style will be appended like shown in the example.</strong>
+      </p>
+      <!-- FOR THE CSS STYLING WITHIN THE JAVASCRIPT OBJECT...
+      YOU MUST USE CAMEL CASE FOR IT TO WORK - TO USE REGULAR SYNTAX YOU MUST WRAP THE SELECTORS IN QUOTATION MARKS -->
+      <!-- MANUALLY TYPING OUT THE OBJECT -->
+      <div class="box" :style="{backgroundColor: color}"></div>
+      <!-- USED COMPUTED PROPERTY TO BETTER ORGANIZE CSS OBJECT -->
+      <div class="box" :style="[myStyle]"></div>
+      <input type="text" v-model="color">
+
+      <!--  ******* CONDITIONALS AND LISTS *******-->
+      <h2>Conditionals and Lists</h2>
+
+      <p>
+        <strong>We can conditionally render elements by using the <span class="highlight">v-if</span> directive. It takes a boolean value, which will render the element if set to true and will not render the element if set to false. v-if will also render/remove all child elements within the element the directive is placed on.</strong>
+      </p>
+      <p>
+        <strong>You can also use the <span class="highlight">v-else</span> directive which renders an element only when the v-if directly above is not rendered.</strong>
+      </p>
+      <p>
+        <strong><span class="highlight">v-else-if</span> directive is also a newly available feature in Vue. Although it is not documented in the course, return to this later.</strong>
+      </p>
+      <p v-if="show">I will show because the boolean is set to true!</p>
+      <p v-else>This is shown with the v-else condition.</p>
+      <p v-if="!show">I will only show when the boolean is set to false!</p>
+      <p>
+        <strong>If we want to wrap a bunch of different elements in a conditional, we could use the <span class="highlight">HTML5 template</span> to wrap all our HTML into 1 conditional.</strong>
+      </p>
+      <template v-if="show">
+        <h3>Template Conditional</h3>
+        <p>Multiple elements rendered from one conditional!</p>
+      </template>
+      <button @click="show = !show">Switch Shown Paragraphs</button>
+
+      <hr>
+
+      <p>
+        <strong>Like mentioned before, the v-if directive COMPLETELY appends/removes the entire element from the DOM. But if we were to want to just hide/show an element we could use <span class="highlight">v:show</span></strong>
+      </p>
+      <p v-show="show">This element is shown because set property is set to true, if property were to be set to false this element would STILL BE IN THE DOM but hidden from view (using the display:none property in CSS).</p>
+
+      <hr>
+
+      <p>
+        <strong>When we have data with multiple values, we can render lists in Vue with the <span class="highlight">v-for</span> directive. To use this directive we can do -- <span class="highlight">v-for="(person, i) in persons"</span> -- we create a variable (person) for each instance of the array (persons) and we use DOUBLE BRACES to print the each value into our HTML.</strong>
+      </p>
+      <p>
+        <strong>Notice in the highlighted directive above, we have both the variable (person) as well as the <span class="highlight">index (i)</span> of each item returned by passing it inside the parenthesis after the variable.</strong>
+      </p>
+      <ul>
+        <li v-for="(person, i) in persons">{{ person }} ({{ i }})</li>
+      </ul>
+      <p>
+        <strong>Just as we did for conditionals, if we wanted to iterate through an array and use multiple elements to display the data in the v-for loop, we can use a <span class="highlight">template</span></strong>
+      </p>
+      <template v-for="(person, i) in persons">
+        <h3>{{ person }}</h3>
+        <p>{{ i }}</p>
+      </template>
+
+      <hr>
+
+      <p>
+        <strong><span class="highlight">Looping through JS objects</span> we can do it the exact same way as looping through an array of single items. But if we wanted to <span class="highlight">loop through the properties of every object in the array</span> we would have to use a v-for loop inside of our v-for loop and iterate through each "value in person"</strong>
+      </p>
+      <p>
+        <strong>And just like in normal v-for getting the array's indexes, we can get both the object's key and value by using the parenthesis and included both (value must be declared first before key). You can also get the index of each item by adding it as the last item in the parenthesis (value, key, index)</strong>
+      </p>
+      <ul>
+        <li v-for="data in personsData">
+          <div v-for="(value, key, index) in data">
+            {{ key }} : {{ value }} ({{ index }})
+          </div>
+        </li>
+      </ul>
+
+      <hr>
+
+      <p>
+        <strong>You can specifically control how many times a v-for loop runs with a number <span class="highlight">v-for="n in 10"</span> will loop 10 times as specified</strong>
+      </p>
+      <div v-for="n in 10">{{ n }}</div>
+
+      <h2>The VueJS Instance</h2>
+      <p>
+        <strong></strong>
+      </p>
+
+      <!-- EXERCISES -->
+      <h2>Exercises</h2>
+
+      <div id="exercise1">
+        <p>Current Value: {{ eValue }}</p>
+        <button @click="eValue += 5">Add 5</button>
+        <button @click="eValue += 1">Add 1</button>
+        <p>{{ eResult }}</p>
+      </div>
+
+      <hr>
+
+    </div>
+
+    <script>
+      new Vue({
+        el: "#app",
+        data: {
+          //Basics
+          title: "Hello World!!",
+          linkElement: "<a href='http://www.michaelgee.me'>My Website - michaelgee.me</a>",
+          //Directives
+          link: "http://google.com",
+          x: 0,
+          y: 0,
+          name: 'Michael Gee',
+          //Basics, Directives, Events/CP/WF
+          counter: 0,
+          secondCounter: 0,
+          //CSS
+          attachRed: false,
+          boxColor: 'green',
+          color: 'purple',
+          //Conditionals and Lists
+          show: true,
+          persons: ['Michael', 'Charlie', 'Jeffrey', 'Chandler'],
+          personsData: [
+            { firstName: "Michael", lastName: 'Gee', age: 21 },
+            { firstName: "Charlie", lastName: 'Gee', age: 23 },
+            { firstName: "Jeffrey", lastName: "O'Neal", age: 23 },
+            { firstName: "Chandler", lastName: "O'Neal", age: 24 }
+          ],
+          //Exercise
+          eValue: 0
+
+        },
+
+        computed: {
+          //Basics
+          output() {
+            console.log("Computed");
+            return this.counter > 5 ? 'Greater than 5' : 'Smaller than 5';
+          },
+          //CSS STYLING
+          divClasses() {
+            return {
+              red: this.attachRed,
+              blue: !this.attachRed
+            }
+          },
+          myStyle() {
+            return {
+              backgroundColor: 'pink'
+            }
+          },
+          //Exercise
+          eResult() {
+            //remember to return the value
+            return this.eValue == 37 ? 'done' : 'not there yet';
+          }
+        },
+
+        watch: {
+          //EVENTS/CP/WF
+          secondCounter() {
+            console.log("the secondCounter was changed!!!");
+          },
+          //Exercise
+          eValue() {
+            var vm = this;
+            setTimeout(function(){
+              vm.eValue = 0;
+            },5000);
+          }
+        },
+
+        methods: {
+          //Basics
+          sayHello() {
+            return 'hello';
+          },
+          outputTitle() {
+            this.title = "Hello There!";
+            return this.title;
+          },
+          //Basics, Directives, Events/CP/WF
+          increaseCounter(e, num) {
+            console.log(e);
+            this.counter += num;
+            return;
+          },
+          //Directives
+          updateCoordinates(e) {
+            this.x = e.clientX;
+            this.y = e.clientY;
+          },
+          //EVENTS/CP/WF
+          userSubmission() {
+            alert('User has hit the enter button!');
+          },
+          result() {
+            console.log("Method");
+            return this.counter > 5 ? 'Greater than 5' : 'Smaller than 5';
+          }
+
+        }
+      });
+    </script>
+
+  </body>
+</html>

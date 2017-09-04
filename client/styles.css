@@ -1,0 +1,54 @@
+body {
+  font-family: arial;
+}
+
+#app {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+h2 {
+  text-transform: uppercase;
+  background-color: black;
+  color: white;
+}
+
+h3 {
+  color: green;
+}
+
+a {
+  color: green;
+  text-decoration: underline;
+}
+
+p {
+  font-size: 25px;
+  padding: 0 10px;
+}
+
+.output {
+  color: green;
+}
+
+.highlight {
+  background-color: yellow;
+}
+
+.box {
+  width: 150px;
+  height: 150px;
+  background-color: gray;
+  margin: 0 auto;
+  margin-bottom: 10px;
+}
+  .red {
+    background-color: red;
+  }
+  .blue {
+    background-color: blue;
+  }
+  .green {
+    background-color: green;
+  }
