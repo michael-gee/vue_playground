@@ -77,7 +77,7 @@
       <p>
         <strong>Sometimes we will want to add a <span class="highlight">modifier</span> to an event. To do this we just add a . after the event and declare the modifier we want to use (v-on:mousemove<span class="highlight">.stop</span>). This tells Vue when we mouse over the element with this directive we want to STOP the propogation of the event.</strong>
       </p>
-      <p style="background-color: red; color: white;" v-on:mousemove="updateCoordinates">Coordinates: {{ x }} / {{ y }} - <span v-on:mousemove.stop style="background-color: green; padding: 0 10px;">DEAD SPOT</span></p>
+      <p style="background-color: blue; color: white;" v-on:mousemove="updateCoordinates">Coordinates: {{ x }} / {{ y }} - <span v-on:mousemove.stop style="background-color: green; padding: 0 10px;">DEAD SPOT</span></p>
 
       <hr>
 
@@ -267,11 +267,6 @@
       </p>
       <div v-for="n in 10">{{ n }}</div>
 
-      <h2>The VueJS Instance</h2>
-      <p>
-        <strong></strong>
-      </p>
-
       <!-- EXERCISES -->
       <h2>Exercises</h2>
 
@@ -282,12 +277,102 @@
         <p>{{ eResult }}</p>
       </div>
 
+    </div>
+
+    <div class="red-bar"></div>
+
+    <!-- ******* VUE JS INSTANCE ******* -->
+    <div id="instanceExample">
+      <h2>The VueJS Instance</h2>
+      <p>
+        <strong>The Vue JS instance (every time we create a new Vue({}) ) is basically a middleman between the HTML DOM and our JavaScript business logic where we hold all the data objects like el, data, methods, comuted, and watch. This is where we can do dynamic things with JavaScript to build out our application and create a dynamic DOM.</strong>
+      </p>
+      <p>
+        <strong>We can use <span class="highlight">multiple vue instances on the same page</span>. To do this we simply just created a new instance by using new Vue({}) and pointing that new instance to our new DOM element shown below. Although be aware, when we create a new instance, we can only access the properties and methods within that same instance when using the this keyword.</strong>
+      </p>
+      <p>{{ title }}</p>
+
       <hr>
+
+      <p>
+        <strong>While we cannot access the properties and methods of another instance by using the this keyword, we <span class="highlight">can change the properties and methods of a different Vue instance</span> by storing the instance in a variable and then using that variable within the other instance.</strong>
+      </p>
+      <p> {{ title }}</p>
+      <button @click="changeFirstInstanceTitle()">Change Title Instance </button>
+      <p>
+        <strong>You can see that we now have access to our Vue instances not only in other Vue instances, but our regular JavaScript code outside the instance as well by just referencing the variable.</strong>
+      </p>
+      <p>{{ titleFromJS }}</p>
+      <p>
+        <strong>Although we can use and dynamically change our Vue instances in our normal JavaScript code, we <span class="highlight">can not create new properties from outside the instance</span>. </strong>
+      </p>
+
+      <hr>
+
+      <p>
+        <strong>Once you store the Vue instance in a variable and if you do a console.log() on the variable you will see the Vue instance in the console with a wide range of properties on the object. Including the #el and #data properties which are the reference to the HTML element and the data property object inside of the instance.</strong>
+      </p>
+      <p>
+        <strong>Vue also provides an easy way of referencing HTML DOM elements within your JavaScript code with the <span class="highlight">$refs</span> object.</strong>
+      </p>
+      <p ref="vueRef">Change Me!</p>
+      <button @click="configureRef()">Configure Ref</button>
+      <p>
+        <strong>Using this $refs object is the equivilent to using getElementById() or querySelector() except it is an easy and effective way to access DOM elements inside OR outisde your Vue instance in your JavaScript code.</strong>
+      </p>
+      <p>
+        <strong>You use it by choosing which element in the DOM you want to target and giving it a <span class="highlight">ref=""</span> attribute and givig the ref a name which will be added to the $refs object. Then the element is available to grab through JavaScript by using this.$refs.vueRef (if inside the Vue instance) or vm1.$ref.vueRef (if outside the instance just in regular JS code).</strong>
+      </p>
+      <p>
+        <strong>Although when using the $refs object to configure the DOM, if the content inside the HTML DOM you reference is dyanamic (string interpolation) any changes you make through the $refs object (for example using innerHTML) can be overwritten because the Vue instance is what is controlling the content of the element.</strong>
+      </p>
+
+      <hr>
+
+      <p>
+        <strong>In some use cases, you will want to attach a Vue instance to a <span class="highlight">DOM element that has not been created yet</span>. To do this we can use <span class="highlight">(variable name that vue instance is stored in) vm1.$mount('#elementSelector')</span> instead of the el: {} attribute in the Vue instance to attach the business logic to the template.</strong>
+      </p>
+      <p>
+        <strong>This may come in handy for elements that are dynamically generated with data from a database or other use cases.</strong>
+      </p>
+
+      <hr>
+
+      <p>
+        <strong>We can also <span class="highlight">create our own HTML template within our Vue instance</span> (with some limitations). We do this by passing the instance the <span class="highlight">template: ' '</span> property and inputting our HTML inside a string.</strong>
+      </p>
+      <div id="jsTemplatedDiv"></div>
+
+      <hr>
+
+      <p>
+        <strong>When we create these vue instanes, they can only be used on one element in the DOM. Event if we target as class CSS selector element, when we use 2 elements only one will register. To register multiple Vue instances we must use <span class="highlight">components</span>. We create components by using <span class="highlight">Vue.componenet(cssSelector, {Object with Vue properties})</span></strong>
+      </p>
+      <hello></hello>
+      <hello></hello>
+
+      <hr>
+
+      <p>
+        <strong>Accessing the HTML DOM is the slowest part of the render/rerender phase so to improve performance Vue uses a <span class="highlight">virtual DOM - a copy of the DOM parsed in JavaScript -</span> to update changes to properties and methods and then send those changes to the certain parts of the DOM through JavaScript. </strong>
+      </p>
+      <img src="images/vuedom.PNG" alt="Vue Virtual DOM Representation">
 
     </div>
 
+    <div id="lifecycle">
+      <h2>Vue instance Lifecycle</h2>
+      <img src="images/vuelifecycle.PNG" alt="Vue Instance Lifecycle">
+      <p>
+        <strong>Every Vue instance has a lifecycle consisting of functions that can be hooked into to provide user created events. For example is we use the destory() lifecycle function (the last one) which removes the Vue instance from an element entirely, the element will still exist but it just won't have the Vue instance tied to it anymore.</strong>
+      </p>
+      <h3>{{ title }}</h3>
+      <button @click="title = 'Changed'">Update Title</button>
+      <button @click="destroy()">Destroy</button>
+    </div>
+
     <script>
-      new Vue({
+      var vm1 = new Vue({
         el: "#app",
         data: {
           //Basics
@@ -322,7 +407,7 @@
         computed: {
           //Basics
           output() {
-            console.log("Computed");
+            //console.log("Computed");
             return this.counter > 5 ? 'Greater than 5' : 'Smaller than 5';
           },
           //CSS STYLING
@@ -364,7 +449,7 @@
             return 'hello';
           },
           outputTitle() {
-            this.title = "Hello There!";
+            this.title = "Hello from the first instance!";
             return this.title;
           },
           //Basics, Directives, Events/CP/WF
@@ -383,10 +468,79 @@
             alert('User has hit the enter button!');
           },
           result() {
-            console.log("Method");
+            //console.log("Method");
             return this.counter > 5 ? 'Greater than 5' : 'Smaller than 5';
           }
 
+        }
+      });
+
+      var vm2 = new Vue({
+        el: '#instanceExample',
+        data: {
+          title: 'Hello from the second instance!',
+          titleFromJS: 'Hello World'
+        },
+        methods: {
+          changeFirstInstanceTitle() {
+            this.title = vm1.title;
+          },
+          configureRef() {
+            console.log(this.$refs.vueRef);
+            this.$refs.vueRef.innerHTML = 'vueRef HTML changed!';
+          }
+        }
+      });
+
+      vm2.titleFromJS = 'Hello from outside the instance';
+
+      var vm3 = new Vue({
+        template: '<h3>Hello From inside the JavaScript template property!</h3>'
+      });
+      //Used $mount() instead of the el: property
+      vm3.$mount('#jsTemplatedDiv');
+
+
+      Vue.component('hello', {
+        template: '<h3>Hello from a Vue Component!</h3>'
+      });
+
+      //lifecycle Instance
+      var vm4 = new Vue({
+        el: '#lifecycle',
+        data: {
+          title: 'VueJS Instance'
+        },
+
+        beforeCreate() {
+          console.log('beforeCreate()');
+        },
+        created() {
+          console.log('created()');
+        },
+        beforeMount() {
+          console.log('beforeMount()');
+        },
+        mounted() {
+          console.log('mounted()');
+        },
+        beforeUpdate() {
+          console.log('beforeUpdate()');
+        },
+        updated() {
+          console.log('updated()');
+        },
+        beforeDestroy() {
+          console.log('beforeDestroy()');
+        },
+        destroyed() {
+          console.log('destroyed()');
+        },
+
+        methods: {
+          destroy() {
+            this.$destroy();
+          }
         }
       });
     </script>

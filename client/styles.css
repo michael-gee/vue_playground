@@ -2,7 +2,7 @@ body {
   font-family: arial;
 }
 
-#app {
+#app, #instanceExample, #lifecycle {
   max-width: 1200px;
   margin: 0 auto;
   text-align: center;
@@ -23,9 +23,20 @@ a {
   text-decoration: underline;
 }
 
+img {
+  max-width: 100%;
+}
+
 p {
   font-size: 25px;
   padding: 0 10px;
+}
+
+.red-bar {
+  height: 30px;
+  width: 1200px;
+  margin: 0 auto;
+  background-color: red;
 }
 
 .output {
