@@ -343,13 +343,27 @@
       </p>
       <div id="jsTemplatedDiv"></div>
 
-      <hr>
+      <h2>Components</h2>
 
       <p>
         <strong>When we create these vue instanes, they can only be used on one element in the DOM. Event if we target as class CSS selector element, when we use 2 elements only one will register. To register multiple Vue instances we must use <span class="highlight">components</span>. We create components by using <span class="highlight">Vue.componenet(cssSelector, {Object with Vue properties})</span></strong>
       </p>
-      <hello></hello>
-      <hello></hello>
+      <ceg-component></ceg-component>
+      <ceg-component></ceg-component>
+      <p>
+        <strong>When we want to create properties in the component object, instead of using data as an object (like we do for a regular Vue instance) we must use <span class="highlight">data as a function and then return an object</span> with our properties listed inside.</strong>
+      </p>
+
+      <hr>
+
+      <p>
+        <strong>When we use the Vue.component() function we are creating the component globally. An alternative is to <span class="highlight">create components locally</span> creating a variable and store just the component object inside just like we did for the global component except we not get rid of the css selector arguement we passed to the component() function.</strong>
+      </p>
+      <p>
+        <strong>After we create the object and store it in the variable, we can then use this variable inside our Vue instances. We do this by using the <span class="highlight">components: { }</span> keyword in our instance where we can list the components we want to use and where to find the business logic for them (the variable they are stored in).</strong>
+      </p>
+      <ceg-secondary></ceg-secondary>
+      <ceg-secondary></ceg-secondary>
 
       <hr>
 
@@ -403,7 +417,6 @@
           eValue: 0
 
         },
-
         computed: {
           //Basics
           output() {
@@ -428,7 +441,6 @@
             return this.eValue == 37 ? 'done' : 'not there yet';
           }
         },
-
         watch: {
           //EVENTS/CP/WF
           secondCounter() {
@@ -442,7 +454,6 @@
             },5000);
           }
         },
-
         methods: {
           //Basics
           sayHello() {
@@ -475,11 +486,33 @@
         }
       });
 
+
+
+      // ***** COMPONENTS *****
+      Vue.component('ceg-component', {
+        data() {
+          return {
+            componentName: 'ceg-component'
+          }
+        },
+        template: '<h3>Hello from the {{ componentName }} Vue Component!</h3>'
+      });
+      var cmp = {
+        data() {
+          return {
+            componentName: 'ceg-secondary'
+          }
+        },
+        template: '<h3>Hello from the {{ componentName }} Vue Component!</h3>'
+      }
       var vm2 = new Vue({
         el: '#instanceExample',
         data: {
           title: 'Hello from the second instance!',
           titleFromJS: 'Hello World'
+        },
+        components: {
+          'ceg-secondary': cmp
         },
         methods: {
           changeFirstInstanceTitle() {
@@ -494,6 +527,8 @@
 
       vm2.titleFromJS = 'Hello from outside the instance';
 
+
+
       var vm3 = new Vue({
         template: '<h3>Hello From inside the JavaScript template property!</h3>'
       });
@@ -501,9 +536,6 @@
       vm3.$mount('#jsTemplatedDiv');
 
 
-      Vue.component('hello', {
-        template: '<h3>Hello from a Vue Component!</h3>'
-      });
 
       //lifecycle Instance
       var vm4 = new Vue({
