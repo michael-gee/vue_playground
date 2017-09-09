@@ -1,9 +1,9 @@
 <template lang="html">
   <div class="practice-container">
-    <h1>Props Component</h1>
+    <h2>Props Component</h2>
 
-    <p>Name: {{ name }}</p>
-    <p>Age: {{ age }}</p>
+    <p>Name: {{ userName }}</p>
+    <p>Age: {{ userAge }}</p>
     <button @click="changeNameFunc('Mike Gee')">Change Name</button>
   </div>
 </template>
@@ -14,13 +14,13 @@ export default {
   // Since this practice component is a child of Ceg-Home, we can get and use the properties from it by using the props object.
   // We can validate the type that gets passed from the parent by setting the property value to the expected JavaScript type.
   props: {
-    name: {
+    userName: {
       // If we place the types in an array, this tells Vue that there is more than one accepted type to the specific prop so the name prop can accept a string or an object
       type:[String, Object],
       // If the prop type being passed is an object or an array, the property should be a function that should return the object/array structure
       default: 'Michael'
     },
-    age: {
+    userAge: {
       type: Number,
       // required makes the age attribute required whenever you include the ceg-practice element in the DOM, if required is not included the attribute can be left off the element when used
       required:true

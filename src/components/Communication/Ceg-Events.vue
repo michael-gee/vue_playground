@@ -1,7 +1,7 @@
 <template>
   <div class="events-container">
-    <h1>Events Component</h1>
-    <button @click="eventChangeName">Event Change Name</button>
+    <h2>Events Component</h2>
+    <button id="event-button" @click="eventChangeName">Event Change Name</button>
   </div>
 </template>
 
@@ -21,4 +21,7 @@ export default {
 </script>
 
 <style lang="css">
+  #event-button {
+    margin-top: 25px;
+  }
 </style>
