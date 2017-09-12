@@ -159,5 +159,6 @@ export default {
   .comm-container {
     border: 1px solid #41B883;
     overflow: hidden;
+    font-size: 2em;
   }
 </style>

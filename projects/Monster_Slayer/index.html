@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Monster Slayer</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/vue"></script>
+  </head>
+  <body>
+
+    <div class="container">
+
+      <div class="player-scores">
+
+        <div class="user">
+          <h2>YOU</h2>
+          <div class="healthbar">
+            <div class="current-health" :style="{width: userHealth + '%'}">{{ userHealth }}</div>
+          </div>
+        </div>
+
+        <div class="monster">
+          <h2>MONSTER</h2>
+          <div class="healthbar">
+            <div class="current-health" :style="{width: monsterHealth + '%'}">{{ monsterHealth }}</div>
+          </div>
+        </div>
+
+      </div><!-- PLAYER SCORES DIV END -->
+
+      <div class="button-bar">
+
+        <button v-if="!gameIsActive" id="start-button" @click="startGame()">Start Game</button>
+
+        <template v-if="gameIsActive">
+          <button id="attack-button" @click="gameAction('attack')">Attack</button>
+          <button id="sp-attack-button" @click="gameAction('special-attack')">Special Attack</button>
+          <button id="heal-button" @click="gameAction('heal')">Heal</button>
+          <button id="reset-button" @click="reset()">Reset</button>
+        </template>
+
+      </div>
+
+      <div class="status-section" v-if="gameIsActive">
+        <div v-for="result in gameLog" class="game-status">
+          {{ result }}
+        </div>
+      </div>
+
+    </div><!-- CONTAINER DIV END -->
+
+    <script>
+      new Vue({
+        el: ".container",
+
+        data: {
+          userHealth: 100,
+          monsterHealth: 100,
+          gameIsActive: false,
+          gameLog: []
+        },
+
+        computed: {
+          healthCheck() {
+            return this.monsterHealth > 0 && this.userHealth > 0;
+          }
+        },
+
+        methods: {
+          startGame() {
+            this.gameIsActive = true;
+          },
+
+          gameAction(method) {
+            var userAction = Math.max(Math.floor(Math.random() * 10) + 1, 3),
+                userMessage = `PLAYER HITS MONSTER FOR ${userAction}`,
+                monsterAction = Math.max(Math.floor(Math.random() * 10) + 1, 3),
+                monsterMessage = `MONSTER HITS PLAYER FOR ${monsterAction}`;
+            if(method === 'attack') {
+              this.monsterHealth -= userAction;
+            }else if(method === 'special-attack') {
+              userAction = Math.max(Math.floor(Math.random() * 10) + 1, 5);
+              this.monsterHealth -= userAction;
+            }else if(method === 'heal') {
+              userMessage = `PLAYER HEALS HIMSELF FOR ${userAction}`;
+              this.userHealth += 10;
+            }
+
+            this.userHealth -= monsterAction;
+            this.printActions(userMessage, monsterMessage);
+
+            if(this.healthCheck === false){
+              if(this.userHealth <= 0){
+                alert('The Monster has defeated you! Click "Start Game" to play another round!');
+              }else if(this.monsterHealth <= 0){
+                alert('You have defeated the monster! Click "Start Game" to play another round!');
+              }
+              this.reset();
+            }
+          },
+
+          printActions(userM, monsterM) {
+            if(this.gameLog.length >= 18){
+              this.gameLog.splice(0, 2);
+            }
+            this.gameLog.push(userM, monsterM);
+          },
+
+          reset() {
+            this.userHealth = 100;
+            this.monsterHealth = 100;
+            this.gameLog = [];
+            this.gameIsActive = false;
+          }
+        }
+      });
+    </script>
+
+  </body>
+</html>

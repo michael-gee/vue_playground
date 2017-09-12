@@ -5,7 +5,8 @@
 
     <div class="content-container">
 
-      <ceg-communication></ceg-communication>
+      <!-- <ceg-communication></ceg-communication> -->
+      <!-- <ceg-forms></ceg-forms> -->
 
     </div>
 
@@ -19,13 +20,15 @@
   import Footer from './components/Shared/Ceg-Footer.vue';
 
   import Communication from './components/Communication/Ceg-Communication.vue';
+  import Forms from './components/Forms/Ceg-Forms.vue';
 
   export default {
     components: {
       'ceg-header': Header,
       'ceg-footer': Footer,
 
-      'ceg-communication': Communication
+      'ceg-communication': Communication,
+      'ceg-forms': Forms
     }
   }
 </script>
@@ -59,7 +62,6 @@
     h3 {
       font-size: 2.5em;
     }
-
   p {
     font-size: 2em;
   }
