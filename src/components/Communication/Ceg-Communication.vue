@@ -1,6 +1,6 @@
 <template lang="html">
   <!-- In components all your HTML must be wrapped inside of a single div (the container) for it to be registered correcly in Vue -->
-  <div class="comm-container">
+  <div class="component-container">
     <section>
       <h1>Communicaton Component</h1>
       <p :style="myStyle">My name is {{ name }} and I am {{ age }} years old.</p>
@@ -156,9 +156,5 @@ export default {
 <!-- To scope CSS styles to individual components we use the scoped attribute inside the style tag. Vue will do the magic for us, creating dynamic style tags to scope our css styles -->
 <!-- Even when scoping css using classes/ids are faster than using the element selectors themselves performance wise. -->
 <style>
-  .comm-container {
-    border: 1px solid #41B883;
-    overflow: hidden;
-    font-size: 2em;
-  }
+
 </style>

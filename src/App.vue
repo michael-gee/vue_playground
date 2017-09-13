@@ -7,6 +7,9 @@
 
       <!-- <ceg-communication></ceg-communication> -->
       <!-- <ceg-forms></ceg-forms> -->
+      <!-- <ceg-directives></ceg-directives> -->
+      <!-- <ceg-filters></ceg-filters> -->
+      <ceg-mixins></ceg-mixins>
 
     </div>
 
@@ -21,6 +24,9 @@
 
   import Communication from './components/Communication/Ceg-Communication.vue';
   import Forms from './components/Forms/Ceg-Forms.vue';
+  import Directives from './components/Directives/Ceg-Directives.vue';
+  import Filters from './components/Filters&Mixins/Ceg-Filters.vue';
+  import Mixins from './components/Filters&Mixins/Ceg-Mixins.vue';
 
   export default {
     components: {
@@ -28,7 +34,10 @@
       'ceg-footer': Footer,
 
       'ceg-communication': Communication,
-      'ceg-forms': Forms
+      'ceg-forms': Forms,
+      'ceg-directives': Directives,
+      'ceg-filters': Filters,
+      'ceg-mixins': Mixins
     }
   }
 </script>
@@ -41,29 +50,28 @@
     font-family: arial;
   }
   .content-container {
-    padding: 25px;
+    max-width: 1200px;
     margin: 0 auto;
     text-align: center;
-    width: 1200px;
   }
-  section {
+
+  .component-container {
+    margin: 0;
     padding: 25px 0;
+    border: 1px solid #41B883;
+  }
+
+  section {
+    padding: 25px;
+    font-size: 20px;
   }
 
   h1, h2, h3, h4, h5, h6 {
     margin: 0;
   }
-    h1 {
-      font-size: 3.2em;
-    }
-    h2 {
-      font-size: 2.8em;
-    }
-    h3 {
-      font-size: 2.5em;
-    }
+
   p {
-    font-size: 2em;
+    font-size: 20px;
   }
 
   button {

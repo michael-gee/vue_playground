@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="container">
+  <div class="component-container">
 
     <form>
 
@@ -208,9 +208,3 @@
     }
   }
 </script>
-
-<style scoped>
-  .container {
-    font-size: 2.4em;
-  }
-</style>
