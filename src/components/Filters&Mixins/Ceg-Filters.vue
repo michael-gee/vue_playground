@@ -10,6 +10,9 @@
       <!-- To chain filters we can just simply  add another pipe followed by the next filter. The additional filter uses the filtered data from the first filter and alters that data from left to right. So thats why the end result is the text in lower case. -->
       <p>{{ text | toUpperCase | toLowerCase }}</p>
 
+      <!-- <p>{{ message | reverseString }}</p> -->
+      <p>{{ reversedString }}</p>
+
       <hr>
 
       <!-- ********** BEST PRACTICE ********** -->
@@ -30,6 +33,7 @@
     data() {
       return {
         text: 'Hello World!',
+        message: 'This is a filtered message!',
         fruits: ['Apple', 'Banana', 'Mango', "Melon"],
         filterText: ''
       }
@@ -43,6 +47,10 @@
 
       toLowerCase(value) {
         return value.toLowerCase();
+      },
+
+      reverseString(value) {
+        return value.split('').reverse().join('');
       }
     },
     // Computed properties are a better alternative because the properties are only rerendered if your specific property is changed in template instead of rerendering every time the DOM rerenders
@@ -53,6 +61,10 @@
         return this.fruits.filter((element) => {
           return element.match(this.filterText);
         });
+      },
+
+      reversedString() {
+        return this.message.split('').reverse().join('');
       }
     }
   }

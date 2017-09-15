@@ -9,7 +9,8 @@
       <!-- <ceg-forms></ceg-forms> -->
       <!-- <ceg-directives></ceg-directives> -->
       <!-- <ceg-filters></ceg-filters> -->
-      <ceg-mixins></ceg-mixins>
+      <!-- <ceg-mixins></ceg-mixins> -->
+      <ceg-animations></ceg-animations>
 
     </div>
 
@@ -25,8 +26,11 @@
   import Communication from './components/Communication/Ceg-Communication.vue';
   import Forms from './components/Forms/Ceg-Forms.vue';
   import Directives from './components/Directives/Ceg-Directives.vue';
+
   import Filters from './components/Filters&Mixins/Ceg-Filters.vue';
   import Mixins from './components/Filters&Mixins/Ceg-Mixins.vue';
+
+  import Animations from './components/Animations/Ceg-Animations.vue';
 
   export default {
     components: {
@@ -36,8 +40,11 @@
       'ceg-communication': Communication,
       'ceg-forms': Forms,
       'ceg-directives': Directives,
+
       'ceg-filters': Filters,
-      'ceg-mixins': Mixins
+      'ceg-mixins': Mixins,
+
+      'ceg-animations': Animations
     }
   }
 </script>
@@ -78,7 +85,7 @@
     background-color: #41B883;
     color: white;
     border: none;
-    font-size: 2em;
+    font-size: 20px;
     padding: 15px;
     cursor: pointer;
     border-radius: 5px;

@@ -5,6 +5,11 @@
       <h1>Mixins</h1>
       <p>Mixins are used when you have some reusable code or data that you spread throughout multiple components.</p>
 
+      <!-- If we manipulate data that comes from a mixin, like adding to the fruits list shown below, The data manipulation will ONLY HAPPEN TO THE MIXIN INSTANCE INSIDE OF THIS COMPONENT rather than every mixin instance spread across your application. -->
+      <button @click="fruits.push('Berries')">Add New Item</button>
+      <!-- So when you manipulate the fruits array in this component, it will not manipulate the fruits mixin array instance that is given to another component. -->
+      <br>
+      <br>
       <input type="text" v-model="filterText">
       <ul>
         <li v-for="fruit in filteredFruits">{{ fruit }}</li>
