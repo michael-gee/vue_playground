@@ -10,7 +10,9 @@
       <!-- <ceg-directives></ceg-directives> -->
       <!-- <ceg-filters></ceg-filters> -->
       <!-- <ceg-mixins></ceg-mixins> -->
-      <ceg-animations></ceg-animations>
+      <!-- <ceg-animations></ceg-animations> -->
+      <!-- <monster-slayer></monster-slayer> -->
+      <ceg-http></ceg-http>
 
     </div>
 
@@ -32,6 +34,11 @@
 
   import Animations from './components/Animations/Ceg-Animations.vue';
 
+  import Http from './components/Http/Ceg-Http.vue';
+
+  //Projects
+  import MonsterSlayer from './components/Projects/Monster-Slayer.vue';
+
   export default {
     components: {
       'ceg-header': Header,
@@ -44,7 +51,11 @@
       'ceg-filters': Filters,
       'ceg-mixins': Mixins,
 
-      'ceg-animations': Animations
+      'ceg-animations': Animations,
+
+      'ceg-http': Http,
+
+      'monster-slayer': MonsterSlayer
     }
   }
 </script>
@@ -60,12 +71,12 @@
     max-width: 1200px;
     margin: 0 auto;
     text-align: center;
+    border: 1px solid #41B883;
   }
 
   .component-container {
     margin: 0;
     padding: 25px 0;
-    border: 1px solid #41B883;
   }
 
   section {
