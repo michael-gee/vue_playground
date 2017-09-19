@@ -1,19 +1,11 @@
 <template>
   <div class="container">
-
+    
     <ceg-header></ceg-header>
 
     <div class="content-container">
-
-      <!-- <ceg-communication></ceg-communication> -->
-      <!-- <ceg-forms></ceg-forms> -->
-      <!-- <ceg-directives></ceg-directives> -->
-      <!-- <ceg-filters></ceg-filters> -->
-      <!-- <ceg-mixins></ceg-mixins> -->
-      <!-- <ceg-animations></ceg-animations> -->
-      <!-- <monster-slayer></monster-slayer> -->
-      <ceg-http></ceg-http>
-
+      <!-- In our HTML we use router-view to place where we want our component routes to register -->
+      <router-view></router-view>
     </div>
 
     <ceg-footer></ceg-footer>
@@ -25,37 +17,10 @@
   import Header from './components/Shared/Ceg-Header.vue';
   import Footer from './components/Shared/Ceg-Footer.vue';
 
-  import Communication from './components/Communication/Ceg-Communication.vue';
-  import Forms from './components/Forms/Ceg-Forms.vue';
-  import Directives from './components/Directives/Ceg-Directives.vue';
-
-  import Filters from './components/Filters&Mixins/Ceg-Filters.vue';
-  import Mixins from './components/Filters&Mixins/Ceg-Mixins.vue';
-
-  import Animations from './components/Animations/Ceg-Animations.vue';
-
-  import Http from './components/Http/Ceg-Http.vue';
-
-  //Projects
-  import MonsterSlayer from './components/Projects/Monster-Slayer.vue';
-
   export default {
     components: {
       'ceg-header': Header,
-      'ceg-footer': Footer,
-
-      'ceg-communication': Communication,
-      'ceg-forms': Forms,
-      'ceg-directives': Directives,
-
-      'ceg-filters': Filters,
-      'ceg-mixins': Mixins,
-
-      'ceg-animations': Animations,
-
-      'ceg-http': Http,
-
-      'monster-slayer': MonsterSlayer
+      'ceg-footer': Footer
     }
   }
 </script>

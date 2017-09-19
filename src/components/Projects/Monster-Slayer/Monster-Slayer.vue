@@ -140,7 +140,6 @@
     margin-bottom: 50px;
   }
     h2 {
-      font-size: 3.5em;
       margin-bottom: 15px;
     }
     .healthbar {
@@ -152,7 +151,6 @@
     .current-health {
       color: white;
       max-width: 100%;
-      font-size: 2em;
       background-color: green;
       padding: 20px 0;
     }
@@ -172,7 +170,6 @@
             box-shadow: 0 10px 6px -6px #eee;
   }
     button {
-      font-size: 2.5em;
       padding: 10px 25px;
       border-radius: 5px;
       cursor: pointer;
@@ -221,7 +218,6 @@
     border-radius: 5px;
     border: 3px solid #eee;
     text-transform: uppercase;
-    font-size: 2em;
     font-weight: bold;
     -webkit-box-shadow: 0 10px 6px -6px #eee;
        -moz-box-shadow: 0 10px 6px -6px #eee;

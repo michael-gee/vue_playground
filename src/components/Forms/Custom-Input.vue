@@ -27,8 +27,8 @@
 
 <style scoped>
   #on, #off {
-    width: 40px;
-    height: 20px;
+    width: 50px;
+    height: 30px;
     background-color: lightgray;
     padding: 2px;
     display: inline-block;
