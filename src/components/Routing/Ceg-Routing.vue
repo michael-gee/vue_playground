@@ -44,6 +44,18 @@
 
         <p>Child routes are shown in the Projects folder with the Ceg-Projects component along with the different project components.</p>
 
+        <hr>
+
+        <p>In Vue you can also configure a user's Authentication of leaving or entering a page, or making sure the user wants to leave before they close/leave the application.</p>
+        <router-link tag="button" to="/guarded-routes">Guarded Routes</router-link>
+
+        <hr>
+
+        <div style="height: 700px;"></div>
+
+        <!-- Since we give this element the ID of anchor, when we type address.com/routing#data the browser will route to the routing page and scroll directly to the element specified behind the hash -->
+        <p id="anchor">Tag to be anchored to from anchor route</p>
+
     </section>
   </div>
 </template>

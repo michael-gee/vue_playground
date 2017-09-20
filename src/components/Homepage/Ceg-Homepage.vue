@@ -16,7 +16,7 @@
       </router-link>
       <router-link to="/directives" class="page">
         <div>
-          Directeves
+          Directives
         </div>
       </router-link>
 
@@ -43,7 +43,7 @@
           HTTP
         </div>
       </router-link>
-      <router-link to="/routing" class="page">
+      <router-link :to="link" class="page">
         <div>
           Routing
         </div>
@@ -51,6 +51,13 @@
       <router-link to="/projects" class="page">
         <div>
           Projects
+        </div>
+      </router-link>
+
+
+      <router-link to="/vuex" class="page">
+        <div>
+          VueX
         </div>
       </router-link>
 
@@ -65,6 +72,15 @@
   export default {
     data() {
       return {
+        link: {
+          name: 'routing',
+          query: {
+            location: 'en',
+            q: 100
+          },
+          // When we have an anchor tag included in an element we want to scroll to directly once routed to, we include the hash object property. This will append this #data to the end of the URL but it will not fully scroll yet
+          hash: '#anchor'
+        },
         codepenLink: "https://codepen.io/michaelg22/pen/VMavqN?editors=1100"
       }
     }
@@ -86,7 +102,7 @@
     float: left;
   }
   #codePen {
-    margin: 0 auto;
+    width: 100%;
     margin-top: 25px;
   }
 </style>

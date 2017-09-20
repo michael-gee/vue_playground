@@ -1,11 +1,20 @@
 <template>
   <div class="container">
-    
+
     <ceg-header></ceg-header>
 
     <div class="content-container">
       <!-- In our HTML we use router-view to place where we want our component routes to register -->
-      <router-view></router-view>
+      <!-- To add animations when we switch our routes, we can simply wrap a transition tag around our router-view and now every time our routes change, the animations we specify will be triggered -->
+      <transition
+        appear
+        mode="out-in"
+        enter-active-class="animated fadeIn"
+        leave-active-class="animated fadeOut">
+
+          <router-view></router-view>
+          
+      </transition>
     </div>
 
     <ceg-footer></ceg-footer>

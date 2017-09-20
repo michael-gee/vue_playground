@@ -3,6 +3,8 @@ import VueRouter from 'vue-router'
   import { routes } from './routes';
 import VueResource from 'vue-resource'
 import App from './App.vue'
+import { store } from './store/store';
+
 
 // We set up our Router in the main.js file. We first import it and then use Vue.use() to implement it.
 Vue.use(VueRouter);
@@ -10,8 +12,27 @@ Vue.use(VueRouter);
 const router = new VueRouter({
   routes,
   // mode: 'hash' is the default which Vue uses to create # routing in our application. But if our server is set up correclty to redirect all incoming requests to our index.html file, we can use the 'history' mode to make it to where our routing is used as normal address.com/monster-slayer
-  mode: 'history'
+  mode: 'history',
+  // To make the anchor tag get scrolled to once the anchor is added to the URL, we can configure the scrollBehavior to make the page jump to the anchor we want it to.
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition;
+    }
+    if (to.hash) {
+      return { selector: to.hash };
+    }
+  }
 });
+
+
+
+// To start with guarded routes, we can set up a beforeEach method on our router that executes a desired action before each route action. This is a GLOBAL for each, so you do not want to put a lot of logic in this method because it will run on EVERY route change
+router.beforeEach((to, from, next) => {
+  console.log('global beforeEach');
+  next(); //You must include next() or your application methods won't execute properly. You can also pass false as a parameter to stay on the current page and not move on, and you can pass your route object to redirect the page if you pass the route object as a param
+});
+
+
 
 // To add an outside dependency to our Vue project, we must add it using Vue.us() (extending the core Vue.js functionality) in our main.js application file so it will be accessable throughout our application.
   //After importing the dependency above, we can include it in the .use() method and now we have vue-resource available in our application
@@ -32,6 +53,8 @@ Vue.http.interceptors.push((request, next) => {
   });
 });
 
+
+
 // Event Buses must be registered before the main applicaton Vue instance
 export const eventBus = new Vue();
 
@@ -40,6 +63,8 @@ export const eventBus = new Vue();
 //Vue.mixin({});
 // Vue.filter();
 
+
+
 //To register a directive globally, we can register it here using the Vue.directive() method. In the first argument we specify the name of the directive(v-highlight) and the second argument is the object configuration of the directive.
 Vue.directive('highlight', {
   bind(el, binding, vnode) {
@@ -47,9 +72,13 @@ Vue.directive('highlight', {
   }
 });
 
+
+
 new Vue({
   el: '#app',
   // Since the key:value is the same, in es6 we can exclude the router: router and just put router. But we must include this in the main vue instance to set up our routing
   router,
+  // To give your application access to your Vuex store you just include it in the main.js Vue instance after importing it at the top
+  store,
   render: h => h(App)
 })
